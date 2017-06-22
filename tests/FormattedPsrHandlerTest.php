@@ -13,24 +13,17 @@ final class FormattedPsrHandlerTest extends TestCase
     {
         yield [
             [
+                'channel' => 'formatted-psr-handler',
+                'datetime' => 'now',
                 'level' => Logger::DEBUG,
                 'level_name' => 'debug',
                 'message' => 'message',
                 'context' => [],
+                'extra' => [],
             ],
-            'message',
+            '[now] formatted-psr-handler.debug: message [] []' . PHP_EOL,
         ];
 
-        yield [
-            [
-                'level' => Logger::DEBUG,
-                'level_name' => 'debug',
-                'formatted' => '<h1>message</h1>',
-                'message' => 'message',
-                'context' => [],
-            ],
-            '<h1>message</h1>',
-        ];
     }
 
     /**

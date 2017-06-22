@@ -2,11 +2,11 @@
 
 namespace WyriHaximus\Monolog\FormattedPsrHandler;
 
-use Monolog\Handler\AbstractHandler;
+use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
-final class FormattedPsrHandler extends AbstractHandler
+final class FormattedPsrHandler extends AbstractProcessingHandler
 {
     protected $logger;
 
@@ -20,7 +20,7 @@ final class FormattedPsrHandler extends AbstractHandler
     /**
      * {@inheritDoc}
      */
-    public function handle(array $record)
+    public function write(array $record)
     {
         if (!$this->isHandling($record)) {
             return false;
