@@ -1,0 +1,35 @@
+{
+    "name": "wyrihaximus/monolog-formatted-psr-handler",
+    "description": "Passes `formatted` instead of `message` to the PSR-3 logger",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cees-Jan Kiewiet",
+            "email": "ceesjank@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "monolog/monolog": "^1.23",
+        "psr/log": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WyriHaximus\\Monolog\\FormattedPsrHandler\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WyriHaximus\\Tests\\Monolog\\FormattedPsrHandler\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.0"
+        }
+    }
+}
