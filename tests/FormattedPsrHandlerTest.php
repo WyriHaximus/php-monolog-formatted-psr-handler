@@ -23,7 +23,6 @@ final class FormattedPsrHandlerTest extends TestCase
             ],
             '[now] formatted-psr-handler.debug: message [] []' . PHP_EOL,
         ];
-
     }
 
     /**
