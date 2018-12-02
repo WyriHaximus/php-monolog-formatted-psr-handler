@@ -7,6 +7,9 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use WyriHaximus\Monolog\FormattedPsrHandler\FormattedPsrHandler;
 
+/**
+ * @internal
+ */
 final class FormattedPsrHandlerTest extends TestCase
 {
     public function provideRecords()
@@ -28,7 +31,7 @@ final class FormattedPsrHandlerTest extends TestCase
     /**
      * @dataProvider provideRecords
      */
-    public function testFiltered(array $record, string $message)
+    public function testFiltered(array $record, string $message): void
     {
         $logger = $this->prophesize(LoggerInterface::class);
         $logger->log('debug', $message, [])->shouldBeCalled();

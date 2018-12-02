@@ -27,7 +27,7 @@ final class FormattedPsrHandler extends AbstractProcessingHandler
         }
 
         $this->logger->log(
-            strtolower($record['level_name']),
+            \strtolower($record['level_name']),
             $record['formatted'] ?? $record['message'],
             $record['context']
         );
