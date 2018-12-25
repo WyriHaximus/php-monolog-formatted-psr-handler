@@ -24,7 +24,7 @@ final class FormattedPsrHandlerTest extends TestCase
                 'context' => [],
                 'extra' => [],
             ],
-            '[now] formatted-psr-handler.debug: message [] []' . PHP_EOL,
+            '[now] formatted-psr-handler.debug: message [] []' . \PHP_EOL,
         ];
     }
 
