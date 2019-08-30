@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^7.2",
-        "monolog/monolog": "^1.23",
+        "monolog/monolog": "^1.23 || ^2.0",
         "psr/log": "^1.0"
     },
     "require-dev": {
