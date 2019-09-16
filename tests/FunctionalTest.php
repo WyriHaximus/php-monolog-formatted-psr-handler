@@ -21,7 +21,7 @@ final class FunctionalTest extends TestCase
         $monolog->info('message');
 
         self::assertArrayHasKey('message', $this->logs[0]);
-        self::assertStringContainsString(":00] logger.INFO: message [] []\n", $this->logs[0]['message']);
+        self::assertStringContainsString("] logger.INFO: message [] []\n", $this->logs[0]['message']);
         unset($this->logs[0]['message']);
 
         self::assertSame([
