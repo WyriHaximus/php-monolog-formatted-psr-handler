@@ -20,10 +20,10 @@ final class FormattedPsrHandler extends AbstractProcessingHandler
     /**
      * {@inheritDoc}
      */
-    public function write(array $record)
+    public function write(array $record): void
     {
         if (!$this->isHandling($record)) {
-            return false;
+            return;
         }
 
         $this->logger->log(
@@ -31,7 +31,5 @@ final class FormattedPsrHandler extends AbstractProcessingHandler
             $record['formatted'] ?? $record['message'],
             $record['context']
         );
-
-        return false === $this->bubble;
     }
 }
