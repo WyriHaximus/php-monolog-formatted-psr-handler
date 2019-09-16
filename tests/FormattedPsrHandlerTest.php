@@ -3,9 +3,9 @@
 namespace WyriHaximus\Tests\Monolog\FormattedPsrHandler;
 
 use Monolog\Logger;
-use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use WyriHaximus\Monolog\FormattedPsrHandler\FormattedPsrHandler;
+use WyriHaximus\TestUtilities\TestCase;
 
 /**
  * @internal
