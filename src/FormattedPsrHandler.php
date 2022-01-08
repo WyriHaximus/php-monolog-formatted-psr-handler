@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace WyriHaximus\Monolog\FormattedPsrHandler;
 
@@ -6,12 +8,21 @@ use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
+use function strtolower;
+use function WyriHaximus\PSR3\formatValue;
+
 final class FormattedPsrHandler extends AbstractProcessingHandler
 {
-    protected $logger;
+    protected LoggerInterface $logger;
 
-    public function __construct(LoggerInterface $logger, $level = Logger::DEBUG, $bubble = true)
+    /**
+     * @phpstan-ignore-next-line
+     */
+    public function __construct(LoggerInterface $logger, int|string $level = Logger::DEBUG, bool $bubble = true)
     {
+        /**
+         * @psalm-suppress ArgumentTypeCoercion
+         */
         parent::__construct($level, $bubble);
 
         $this->logger = $logger;
@@ -22,13 +33,13 @@ final class FormattedPsrHandler extends AbstractProcessingHandler
      */
     public function write(array $record): void
     {
-        if (!$this->isHandling($record)) {
+        if (! $this->isHandling($record)) {
             return;
         }
 
         $this->logger->log(
-            \strtolower($record['level_name']),
-            $record['formatted'] ?? $record['message'],
+            strtolower($record['level_name']),
+            formatValue($record['formatted'] ?? $record['message']),
             $record['context']
         );
     }

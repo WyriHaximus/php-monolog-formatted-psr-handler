@@ -1,39 +1,40 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace WyriHaximus\Tests\Monolog\FormattedPsrHandler;
 
+use DateTimeInterface;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
+use Safe\DateTimeImmutable;
 use WyriHaximus\Monolog\FormattedPsrHandler\FormattedPsrHandler;
 use WyriHaximus\TestUtilities\TestCase;
+
+use const PHP_EOL;
 
 /**
  * @internal
  */
 final class FormattedPsrHandlerTest extends TestCase
 {
-    public function provideRecords()
-    {
-        yield [
-            [
-                'channel' => 'formatted-psr-handler',
-                'datetime' => 'now',
-                'level' => Logger::DEBUG,
-                'level_name' => 'debug',
-                'message' => 'message',
-                'context' => [],
-                'extra' => [],
-            ],
-            '[now] formatted-psr-handler.debug: message [] []' . \PHP_EOL,
-        ];
-    }
-
     /**
-     * @dataProvider provideRecords
+     * @test
      */
-    public function testFiltered(array $record, string $message): void
+    public function formatted(): void
     {
-        $logger = $this->prophesize(LoggerInterface::class);
+        $now     = new DateTimeImmutable('now');
+        $record  = [
+            'channel' => 'formatted-psr-handler',
+            'datetime' => $now,
+            'level' => Logger::DEBUG,
+            'level_name' => 'DEBUG',
+            'message' => 'message',
+            'context' => [],
+            'extra' => [],
+        ];
+        $message = '[' . $now->format(DateTimeInterface::ATOM) . '] formatted-psr-handler.DEBUG: message [] []' . PHP_EOL;
+        $logger  = $this->prophesize(LoggerInterface::class);
         $logger->log('debug', $message, [])->shouldBeCalled();
 
         $formattedLogger = new FormattedPsrHandler($logger->reveal());

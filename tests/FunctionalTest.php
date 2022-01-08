@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace WyriHaximus\Tests\Monolog\FormattedPsrHandler;
 
@@ -12,7 +14,8 @@ use WyriHaximus\TestUtilities\TestCase;
  */
 final class FunctionalTest extends TestCase
 {
-    private $logs = [];
+    /** @var array<array<mixed>> */
+    private array $logs = [];
 
     public function testBasic(): void
     {
@@ -36,7 +39,7 @@ final class FunctionalTest extends TestCase
     {
         $monolog = new Logger('logger');
 
-        $monolog->pushHandler(new FormattedPsrHandler(new class(function ($log): void {
+        $monolog->pushHandler(new FormattedPsrHandler(new class (function ($log): void {
             $this->logs[] = $log;
         }) extends AbstractLogger {
             /** @var callable */
@@ -47,6 +50,10 @@ final class FunctionalTest extends TestCase
                 $this->handler = $handler;
             }
 
+            /**
+             * @phpstan-ignore-next-line
+             * @inheritDoc
+             */
             public function log($level, $message, array $context = []): void
             {
                 ($this->handler)([

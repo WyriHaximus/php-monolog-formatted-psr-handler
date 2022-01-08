@@ -1,0 +1,8 @@
+parameters:
+	ergebnis:
+		classesAllowedToBeExtended:
+			- Monolog\Handler\AbstractProcessingHandler
+			- Psr\Log\AbstractLogger
+
+includes:
+	- ../../vendor/wyrihaximus/test-utilities/rules.neon
