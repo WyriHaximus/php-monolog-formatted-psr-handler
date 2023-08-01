@@ -9,15 +9,14 @@ use Psr\Log\AbstractLogger;
 use WyriHaximus\Monolog\FormattedPsrHandler\FormattedPsrHandler;
 use WyriHaximus\TestUtilities\TestCase;
 
-/**
- * @internal
- */
+/** @internal */
 final class FunctionalTest extends TestCase
 {
     /** @var array<array<mixed>> */
     private array $logs = [];
 
-    public function testBasic(): void
+    /** @test */
+    public function basic(): void
     {
         $monolog = $this->provideMonolog();
 
