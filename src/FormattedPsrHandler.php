@@ -13,34 +13,30 @@ use function WyriHaximus\PSR3\formatValue;
 
 final class FormattedPsrHandler extends AbstractProcessingHandler
 {
-    protected LoggerInterface $logger;
-
-    /**
-     * @phpstan-ignore-next-line
-     */
-    public function __construct(LoggerInterface $logger, int|string $level = Logger::DEBUG, bool $bubble = true)
+    /** @phpstan-ignore-next-line */
+    public function __construct(protected LoggerInterface $logger, int|string $level = Logger::DEBUG, bool $bubble = true)
     {
-        /**
-         * @psalm-suppress ArgumentTypeCoercion
-         */
+        /** @psalm-suppress ArgumentTypeCoercion */
         parent::__construct($level, $bubble);
-
-        $this->logger = $logger;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function write(array $record): void
+    protected function write(array $record): void
     {
+        /** @psalm-suppress InvalidArgument */
         if (! $this->isHandling($record)) {
-            return;
+            // @codeCoverageIgnoreStart
+            return; // This is tested in FormattedPsrHandlerTest::notHandled but not picked up by PHPUnit as covered
+
+            // @codeCoverageIgnoreEnd
         }
 
         $this->logger->log(
             strtolower($record['level_name']),
             formatValue($record['formatted'] ?? $record['message']),
-            $record['context']
+            $record['context'],
         );
     }
 }
