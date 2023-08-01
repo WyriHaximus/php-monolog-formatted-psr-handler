@@ -12,7 +12,7 @@
 To install via [Composer](http://getcomposer.org/), use the command below, it will automatically detect the latest version and bind it with `^`.
 
 ```
-composer require wyrihaximus/monolog-formatted-psr-handler 
+composer require wyrihaximus/monolog-formatted-psr-handler
 ```
 
 ## Difference with Monolog's PsrHandler ##
@@ -34,7 +34,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## License ##
 
-Copyright 2017 [Cees-Jan Kiewiet](http://wyrihaximus.net/)
+Copyright 2023 [Cees-Jan Kiewiet](http://wyrihaximus.net/)
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

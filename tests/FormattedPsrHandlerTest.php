@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace WyriHaximus\Tests\Monolog\FormattedPsrHandler;
 
 use DateTimeInterface;
-use Monolog\Logger;
+use Monolog\Level;
+use Monolog\LogRecord;
 use Prophecy\Argument;
 use Psr\Log\LoggerInterface;
 use Safe\DateTimeImmutable;
@@ -19,15 +20,14 @@ final class FormattedPsrHandlerTest extends TestCase
     public function formatted(): void
     {
         $now     = new DateTimeImmutable('now');
-        $record  = [
-            'channel' => 'formatted-psr-handler',
-            'datetime' => $now,
-            'level' => Logger::DEBUG,
-            'level_name' => 'DEBUG',
-            'message' => 'message',
-            'context' => [],
-            'extra' => [],
-        ];
+        $record  = new LogRecord(
+            channel: 'formatted-psr-handler',
+            datetime: $now,
+            level: Level::Debug,
+            message: 'message',
+            context: [],
+            extra: [],
+        );
         $message = '[' . $now->format(DateTimeInterface::ATOM) . '] formatted-psr-handler.DEBUG: message [] []' . "\n";
         $logger  = $this->prophesize(LoggerInterface::class);
         $logger->log('debug', $message, [])->shouldBeCalled();
@@ -42,22 +42,21 @@ final class FormattedPsrHandlerTest extends TestCase
         $logger = $this->prophesize(LoggerInterface::class);
         $logger->log(Argument::type('string'), Argument::type('array'), Argument::type('array'))->shouldNotBeCalled();
 
-        $formattedLogger = new FormattedPsrHandler($logger->reveal(), Logger::EMERGENCY);
-        $formattedLogger->handle([
-            'channel' => 'formatted-psr-handler',
-            'datetime' => new DateTimeImmutable('now'),
-            'level' => Logger::DEBUG,
-            'level_name' => 'DEBUG',
-            'message' => 'message',
-            'context' => [],
-            'extra' => [],
-        ]);
+        $formattedLogger = new FormattedPsrHandler($logger->reveal(), Level::Emergency->value);
+        $formattedLogger->handle(new LogRecord(
+            channel: 'formatted-psr-handler',
+            datetime: new DateTimeImmutable('now'),
+            level: Level::Debug,
+            message: 'message',
+            context: [],
+            extra: [],
+        ));
     }
 
     /** @test */
     public function bubble(): void
     {
-        $formattedLogger = new FormattedPsrHandler($this->prophesize(LoggerInterface::class)->reveal(), Logger::EMERGENCY);
+        $formattedLogger = new FormattedPsrHandler($this->prophesize(LoggerInterface::class)->reveal(), Level::Emergency->value);
         self::assertTrue($formattedLogger->getBubble());
     }
 }

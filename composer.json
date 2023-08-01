@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "monolog/monolog": "^2.9.1",
+        "monolog/monolog": "^3.4.0",
         "psr/log": "^2",
         "thecodingmachine/safe": "^2.5",
         "wyrihaximus/psr-3-utilities": "^2.1"
