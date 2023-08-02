@@ -1,11 +1,10 @@
 # Formatted [PSR-3](http://www.php-fig.org/psr/psr-3/) handler for Monolog
 
-[![Linux Build Status](https://travis-ci.org/WyriHaximus/php-monolog-formatted-psr-handler.png)](https://travis-ci.org/WyriHaximus/php-monolog-formatted-psr-handler)
-[![Latest Stable Version](https://poser.pugx.org/WyriHaximus/monolog-formatted-psr-handler/v/stable.png)](https://packagist.org/packages/WyriHaximus/monolog-formatted-psr-handler)
-[![Total Downloads](https://poser.pugx.org/WyriHaximus/monolog-formatted-psr-handler/downloads.png)](https://packagist.org/packages/WyriHaximus/monolog-formatted-psr-handler/stats)
-[![Code Coverage](https://scrutinizer-ci.com/g/WyriHaximus/php-monolog-formatted-psr-handler/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/WyriHaximus/php-monolog-formatted-psr-handler/?branch=master)
-[![License](https://poser.pugx.org/WyriHaximus/monolog-formatted-psr-handler/license.png)](https://packagist.org/packages/wyrihaximus/monolog-formatted-psr-handler)
-[![PHP 7 ready](http://php7ready.timesplinter.ch/WyriHaximus/php-monolog-formatted-psr-handler/badge.svg)](https://travis-ci.org/WyriHaximus/php-monolog-formatted-psr-handler)
+![Continuous Integration](https://github.com/wyrihaximus/php-monolog-formatted-psr-handler/workflows/Continuous%20Integration/badge.svg)
+[![Latest Stable Version](https://poser.pugx.org/wyrihaximus/monolog-formatted-psr-handler/v/stable.png)](https://packagist.org/packages/wyrihaximus/monolog-formatted-psr-handler)
+[![Total Downloads](https://poser.pugx.org/wyrihaximus/monolog-formatted-psr-handler/downloads.png)](https://packagist.org/packages/wyrihaximus/monolog-formatted-psr-handler/stats)
+[![Type Coverage](https://shepherd.dev/github/WyriHaximus/php-monolog-formatted-psr-handler/coverage.svg)](https://shepherd.dev/github/WyriHaximus/php-monolog-formatted-psr-handler)
+[![License](https://poser.pugx.org/wyrihaximus/monolog-formatted-psr-handler/license.png)](https://packagist.org/packages/wyrihaximus/monolog-formatted-psr-handler)
 
 ### Installation ###
 
