@@ -11,7 +11,7 @@
     "require": {
         "php": "^8.2",
         "monolog/monolog": "^3.4.0",
-        "psr/log": "^2",
+        "psr/log": "^2 || ^3",
         "thecodingmachine/safe": "^2.5",
         "wyrihaximus/psr-3-utilities": "^2.1"
     },
