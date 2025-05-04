@@ -5,42 +5,45 @@ declare(strict_types=1);
 namespace WyriHaximus\Tests\Monolog\FormattedPsrHandler;
 
 use Monolog\Logger;
+use PHPUnit\Framework\Attributes\Test;
 use Psr\Log\AbstractLogger;
 use WyriHaximus\Monolog\FormattedPsrHandler\FormattedPsrHandler;
 use WyriHaximus\TestUtilities\TestCase;
 
-/** @internal */
 final class FunctionalTest extends TestCase
 {
-    /** @var array<array<mixed>> */
+    /** @var array<array{context: array<mixed>, level: string, message: string}> */
     private array $logs = [];
 
-    /** @test */
+    #[Test]
     public function basic(): void
     {
         $monolog = $this->provideMonolog();
 
         $monolog->info('message');
 
-        self::assertArrayHasKey('message', $this->logs[0]);
         self::assertStringContainsString("] logger.INFO: message [] []\n", $this->logs[0]['message']);
-        unset($this->logs[0]['message']);
 
+        $logs = $this->logs;
+        unset($logs[0]['message']);
         self::assertSame([
             [
                 'level' => 'info',
                 'context' => [],
             ],
-        ], $this->logs);
+        ], $logs);
     }
 
     private function provideMonolog(): Logger
     {
         $monolog = new Logger('logger');
 
-        $monolog->pushHandler(new FormattedPsrHandler(new class (function ($log): void {
+        /** @param array{context: array<mixed>, level: string, message: string} $log */
+        $handler = function (array $log): void {
             $this->logs[] = $log;
-        }) extends AbstractLogger {
+        };
+
+        $monolog->pushHandler(new FormattedPsrHandler(new class ($handler) extends AbstractLogger {
             /** @var callable */
             private $handler;
 
@@ -50,7 +53,8 @@ final class FunctionalTest extends TestCase
             }
 
             /**
-             * @phpstan-ignore-next-line
+             * @param array<string, mixed> $context
+             *
              * @inheritDoc
              */
             public function log($level, $message, array $context = []): void
