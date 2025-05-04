@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace WyriHaximus\Tests\Monolog\FormattedPsrHandler;
 
 use DateTimeInterface;
+use Mockery;
 use Monolog\Level;
 use Monolog\LogRecord;
-use Prophecy\Argument;
+use PHPUnit\Framework\Attributes\Test;
 use Psr\Log\LoggerInterface;
 use Safe\DateTimeImmutable;
 use WyriHaximus\Monolog\FormattedPsrHandler\FormattedPsrHandler;
 use WyriHaximus\TestUtilities\TestCase;
 
-/** @internal */
 final class FormattedPsrHandlerTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function formatted(): void
     {
         $now     = new DateTimeImmutable('now');
@@ -29,20 +29,20 @@ final class FormattedPsrHandlerTest extends TestCase
             extra: [],
         );
         $message = '[' . $now->format(DateTimeInterface::ATOM) . '] formatted-psr-handler.DEBUG: message [] []' . "\n";
-        $logger  = $this->prophesize(LoggerInterface::class);
-        $logger->log('debug', $message, [])->shouldBeCalled();
+        $logger  = Mockery::mock(LoggerInterface::class);
+        $logger->expects('log')->with('debug', $message, [])->atLeast()->once();
 
-        $formattedLogger = new FormattedPsrHandler($logger->reveal());
+        $formattedLogger = new FormattedPsrHandler($logger);
         $formattedLogger->handle($record);
     }
 
-    /** @test */
+    #[Test]
     public function notHandled(): void
     {
-        $logger = $this->prophesize(LoggerInterface::class);
-        $logger->log(Argument::type('string'), Argument::type('array'), Argument::type('array'))->shouldNotBeCalled();
+        $logger = Mockery::mock(LoggerInterface::class);
+        $logger->expects('log')->with(Mockery::type('string'), Mockery::type('array'), Mockery::type('array'))->never();
 
-        $formattedLogger = new FormattedPsrHandler($logger->reveal(), Level::Emergency->value);
+        $formattedLogger = new FormattedPsrHandler($logger, Level::Emergency->value);
         $formattedLogger->handle(new LogRecord(
             channel: 'formatted-psr-handler',
             datetime: new DateTimeImmutable('now'),
@@ -53,10 +53,10 @@ final class FormattedPsrHandlerTest extends TestCase
         ));
     }
 
-    /** @test */
+    #[Test]
     public function bubble(): void
     {
-        $formattedLogger = new FormattedPsrHandler($this->prophesize(LoggerInterface::class)->reveal(), Level::Emergency->value);
+        $formattedLogger = new FormattedPsrHandler(Mockery::mock(LoggerInterface::class), Level::Emergency->value);
         self::assertTrue($formattedLogger->getBubble());
     }
 }

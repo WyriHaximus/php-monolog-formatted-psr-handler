@@ -8,9 +8,9 @@ use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Level;
 use Monolog\LogRecord;
 use Psr\Log\LoggerInterface;
+use WyriHaximus\PSR3\Utils;
 
 use function strtolower;
-use function WyriHaximus\PSR3\formatValue;
 
 final class FormattedPsrHandler extends AbstractProcessingHandler
 {
@@ -33,7 +33,7 @@ final class FormattedPsrHandler extends AbstractProcessingHandler
 
         $this->logger->log(
             strtolower($record->level->name),
-            formatValue($record->formatted ?? $record->message),
+            Utils::formatValue($record->formatted ?? $record->message),
             $record->context,
         );
     }
