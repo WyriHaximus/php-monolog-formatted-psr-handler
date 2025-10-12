@@ -6,7 +6,9 @@ namespace WyriHaximus\Tests\Monolog\FormattedPsrHandler;
 
 use Monolog\Logger;
 use PHPUnit\Framework\Attributes\Test;
-use Psr\Log\AbstractLogger;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerTrait;
+use Stringable;
 use WyriHaximus\Monolog\FormattedPsrHandler\FormattedPsrHandler;
 use WyriHaximus\TestUtilities\TestCase;
 
@@ -43,7 +45,9 @@ final class FunctionalTest extends TestCase
             $this->logs[] = $log;
         };
 
-        $monolog->pushHandler(new FormattedPsrHandler(new class ($handler) extends AbstractLogger {
+        $monolog->pushHandler(new FormattedPsrHandler(new class ($handler) implements LoggerInterface {
+            use LoggerTrait;
+
             /** @var callable */
             private $handler;
 
@@ -53,11 +57,14 @@ final class FunctionalTest extends TestCase
             }
 
             /**
+             * @param mixed                $level
              * @param array<string, mixed> $context
              *
              * @inheritDoc
+             *
+             * @phpstan-ignore typeCoverage.paramTypeCoverage
              */
-            public function log($level, $message, array $context = []): void
+            public function log($level, string|Stringable $message, array $context = []): void
             {
                 ($this->handler)([
                     'level' => $level,

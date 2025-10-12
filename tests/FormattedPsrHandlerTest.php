@@ -21,8 +21,8 @@ final class FormattedPsrHandlerTest extends TestCase
     {
         $now     = new DateTimeImmutable('now');
         $record  = new LogRecord(
-            channel: 'formatted-psr-handler',
             datetime: $now,
+            channel: 'formatted-psr-handler',
             level: Level::Debug,
             message: 'message',
             context: [],
@@ -44,8 +44,8 @@ final class FormattedPsrHandlerTest extends TestCase
 
         $formattedLogger = new FormattedPsrHandler($logger, Level::Emergency->value);
         $formattedLogger->handle(new LogRecord(
-            channel: 'formatted-psr-handler',
             datetime: new DateTimeImmutable('now'),
+            channel: 'formatted-psr-handler',
             level: Level::Debug,
             message: 'message',
             context: [],
