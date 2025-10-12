@@ -1,14 +1,14 @@
 parameters:
+	level: max
+	paths:
+		- ../../etc
+		- ../../src
+		- ../../tests
 	ergebnis:
 		noExtends:
 			classesAllowedToBeExtended:
 				- Monolog\Handler\AbstractProcessingHandler
-				- Psr\Log\AbstractLogger
 	ignoreErrors:
-		-
-			identifier: psr3.interpolated
-			path: ../../src/FormattedPsrHandler.php
-			count: 1
 		-
 			identifier: assign.propertyType
 			path: ../../tests/FunctionalTest.php
@@ -16,4 +16,4 @@ parameters:
 		-
 			identifier: method.childParameterType
 			path: ../../tests/FunctionalTest.php
-			count: 3
+			count: 2

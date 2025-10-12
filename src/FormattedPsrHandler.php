@@ -14,7 +14,7 @@ use function strtolower;
 
 final class FormattedPsrHandler extends AbstractProcessingHandler
 {
-    /** @phpstan-ignore-next-line */
+    /** @phpstan-ignore ergebnis.noConstructorParameterWithDefaultValue,ergebnis.noConstructorParameterWithDefaultValue */
     public function __construct(protected LoggerInterface $logger, int|string|Level $level = Level::Debug, bool $bubble = true)
     {
         /** @psalm-suppress ArgumentTypeCoercion */
@@ -31,6 +31,7 @@ final class FormattedPsrHandler extends AbstractProcessingHandler
             // @codeCoverageIgnoreEnd
         }
 
+        /** @phpstan-ignore psr3.interpolated */
         $this->logger->log(
             strtolower($record->level->name),
             Utils::formatValue($record->formatted ?? $record->message),
