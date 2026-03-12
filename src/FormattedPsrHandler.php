@@ -17,13 +17,11 @@ final class FormattedPsrHandler extends AbstractProcessingHandler
     /** @phpstan-ignore ergebnis.noConstructorParameterWithDefaultValue,ergebnis.noConstructorParameterWithDefaultValue */
     public function __construct(protected LoggerInterface $logger, int|string|Level $level = Level::Debug, bool $bubble = true)
     {
-        /** @psalm-suppress ArgumentTypeCoercion */
         parent::__construct($level, $bubble);
     }
 
     protected function write(LogRecord $record): void
     {
-        /** @psalm-suppress InvalidArgument */
         if (! $this->isHandling($record)) {
             // @codeCoverageIgnoreStart
             return; // This is tested in FormattedPsrHandlerTest::notHandled but not picked up by PHPUnit as covered
