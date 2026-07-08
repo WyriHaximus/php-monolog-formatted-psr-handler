@@ -26,11 +26,12 @@ final class FunctionalTest extends TestCase
 
         self::assertStringContainsString("] logger.INFO: message [] []\n", $this->logs[0]['message']);
 
-        $logs = $this->logs;
-        unset($logs[0]['message']);
+        $logs               = $this->logs;
+        $logs[0]['message'] = '';
         self::assertSame([
             [
                 'level' => 'info',
+                'message' => '',
                 'context' => [],
             ],
         ], $logs);
@@ -61,8 +62,6 @@ final class FunctionalTest extends TestCase
              * @param array<string, mixed> $context
              *
              * @inheritDoc
-             *
-             * @phpstan-ignore typeCoverage.paramTypeCoverage
              */
             public function log($level, string|Stringable $message, array $context = []): void
             {
